@@ -4,12 +4,13 @@
   "description": "",
   "main": "plugin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-plugin-tester": "^5.4.0",
+    "babel-plugin-tester": "git+https://github.com/sanfilippopablo/babel-plugin-tester.git",
+    "babel-preset-react": "^6.24.1",
     "jest": "^23.4.1"
   }
 }

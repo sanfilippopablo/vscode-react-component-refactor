@@ -1,7 +1,6 @@
 module.exports = function(babel) {
   const { types: t } = babel;
 
-  console.log(babel);
 
   return {
     name: "ast-transform", // not required
@@ -15,7 +14,6 @@ module.exports = function(babel) {
 
         path.traverse({
           ObjectPattern(path) {
-            console.log(path);
             const variableDeclarator = path.findParent(
               p =>
                 p.isVariableDeclarator() &&
@@ -27,8 +25,6 @@ module.exports = function(babel) {
             }
           }
         });
-
-        console.log({ objectPattern });
 
         path.replaceWith(
           t.variableDeclaration("const", [
@@ -42,10 +38,8 @@ module.exports = function(babel) {
           ])
         );
 
-        console.log(renderMethod.body);
 
         renderMethod.body.body.forEach(statement => {
-          console.log(statement);
           const variableDeclarator = path.findParent(
             p =>
               p.isVariableDeclarator() &&
