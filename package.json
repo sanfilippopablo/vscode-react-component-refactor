@@ -11,6 +11,6 @@
   "dependencies": {
     "babel-plugin-tester": "git+https://github.com/sanfilippopablo/babel-plugin-tester.git",
     "babel-preset-react": "^6.24.1",
-    "jest": "^23.4.1"
+    "jest": "^24.0.0-alpha.1"
   }
 }
