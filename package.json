@@ -1,16 +1,36 @@
 {
-  "name": "react-class-function-babel-plugin",
-  "version": "1.0.0",
-  "description": "",
-  "main": "plugin.js",
-  "scripts": {
-    "test": "jest test.js"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-plugin-tester": "git+https://github.com/sanfilippopablo/babel-plugin-tester.git",
+    "babel-generator": "^6.26.1",
+    "babel-plugin-tester": "^5.5.1",
     "babel-preset-react": "^6.24.1",
+    "babylon": "^6.18.0",
     "jest": "^24.0.0-alpha.1"
+  },
+  "name": "react-component-refactor",
+  "displayName": "react-component-refactor",
+  "description": "VS Code extension to refactor Class Components into Stateless Function Components and viceversa.",
+  "version": "0.0.1",
+  "publisher": "sanfilippopablo",
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./src/extension",
+  "activationEvents": [
+    "onLanguage:javascript"
+  ],
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "jest test.js"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21",
+    "eslint": "^4.11.0",
+    "@types/node": "^8.10.25"
   }
 }
