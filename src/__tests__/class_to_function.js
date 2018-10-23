@@ -1,10 +1,8 @@
 const pluginTester = require("babel-plugin-tester");
-const myPlugin = require("./plugin");
-const assert = require("assert");
+const classToFunction = require("../class-to-function");
 
 pluginTester({
-  plugin: myPlugin,
-  filename: __filename,
+  plugin: classToFunction,
   tests: [
     {
       code: `

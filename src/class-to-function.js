@@ -1,8 +1,8 @@
-module.exports = function(babel) {
+module.exports = babel => {
   const { types: t } = babel;
 
   return {
-    name: "ast-transform", // not required
+    name: "class-to-function", // not required
     visitor: {
       ClassDeclaration(path) {
         // Get the render method of the class component
