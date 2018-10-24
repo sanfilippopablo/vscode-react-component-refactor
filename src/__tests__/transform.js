@@ -1,19 +1,27 @@
-const { classToFunction } = require("../transform");
+const { classToFunction, functionToClass } = require("../transform");
 
-test("transform", () => {
-  expect(
-    classToFunction(
-      `
-      class MyComponent extends Component {
-        render () {
-          return <div>a</div>
+describe("transform", () => {
+  test("classToFunction", () => {
+    expect(
+      classToFunction(
+        `
+        class MyComponent extends Component {
+          render () {
+            return <div>a</div>
+          }
         }
-      }
-      `.trim()
-    )
-  ).toBe(
-    `
-        const MyComponent = () => <div>a</div>;
         `.trim()
-  );
+      )
+    ).toMatchSnapshot();
+  });
+
+  test("functionToClass", () => {
+    expect(
+      functionToClass(
+        `
+        const MyComponent = ({a}) => <div>a</div>;
+        `.trim()
+      )
+    ).toMatchSnapshot();
+  });
 });

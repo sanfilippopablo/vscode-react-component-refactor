@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform classToFunction 1`] = `"const MyComponent = () => <div>a</div>;"`;
+
+exports[`transform functionToClass 1`] = `
+"class MyComponent extends React.Component {
+  render() {
+    const {
+      a
+    } = this.props;
+    return <div>a</div>;
+  }
+
+}"
+`;
