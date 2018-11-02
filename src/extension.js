@@ -23,10 +23,7 @@ function activate(context) {
       const text = textEditor.document.getText(range);
       const transformer = getTransformer(type);
       const transformed = transformer(text);
-      const transformEdit = edit.replace(range, transformed);
-
-      // Display a message box to the user
-      vscode.window.showInformationMessage(text);
+      edit.replace(range, transformed);
     }
   );
 
