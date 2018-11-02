@@ -5,27 +5,33 @@
     "@babel/generator": "^7.1.3",
     "@babel/parser": "^7.1.3",
     "@babel/traverse": "^7.1.4",
-    "babel-generator": "^6.26.1",
     "babel-plugin-tester": "^5.5.1",
     "babel-preset-react": "^6.24.1",
-    "babel-traverse": "^6.26.0",
-    "babylon": "^6.18.0",
     "jest": "^24.0.0-alpha.1"
   },
   "name": "react-component-refactor",
-  "displayName": "react-component-refactor",
-  "description": "VS Code extension to refactor Class Components into Stateless Function Components and viceversa.",
-  "version": "0.0.1",
+  "displayName": "React component refactor",
+  "description": "VS Code extension to refactor react class into function components and vice versa.",
+  "version": "0.1.0",
   "publisher": "sanfilippopablo",
   "engines": {
     "vscode": "^1.28.0"
   },
+  "keywords": [
+    "react",
+    "refactor",
+    "component",
+    "function",
+    "class"
+  ],
+  "icon": "logo.png",
   "categories": [
     "Other"
   ],
   "main": "./src/extension",
   "activationEvents": [
-    "onLanguage:javascript"
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact"
   ],
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
@@ -36,5 +42,9 @@
     "vscode": "^1.1.21",
     "eslint": "^4.11.0",
     "@types/node": "^8.10.25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanfilippopablo/vscode-react-component-refactor.git"
   }
 }
