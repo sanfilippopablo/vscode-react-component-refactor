@@ -19,7 +19,10 @@ describe("transform", () => {
     expect(
       functionToClass(
         `
-        const MyComponent = ({a}) => <div>a</div>;
+        const MyComponent = (theProps) => {
+          const { a, b } = theProps;
+          <div>{theProps.c}</div>
+        };
         `.trim()
       )
     ).toMatchSnapshot();

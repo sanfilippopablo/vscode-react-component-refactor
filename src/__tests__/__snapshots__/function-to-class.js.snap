@@ -36,3 +36,18 @@ class MyComponent extends React.Component {
 }
 "
 `;
+
+exports[`function-to-class 3. function-to-class: 3. function-to-class 1`] = `
+"
+const MyComponent = () => <div>hello</div>;
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+class MyComponent extends React.Component {
+  render() {
+    return <div>hello</div>;
+  }
+
+}
+"
+`;

@@ -10,11 +10,10 @@ module.exports = babel => {
           t.isIdentifier(member.key, { name: "render" })
         );
 
-        let objectPattern;
-
+        // Get all props destructuring patterns
+        const propsDestructuringPatterns = [];
         path.traverse({
           ObjectPattern(path) {
-            // Get the `const { my, vars } = this.props` declaration
             const variableDeclarator = path.findParent(
               p =>
                 p.isVariableDeclarator() &&
@@ -22,12 +21,21 @@ module.exports = babel => {
                 t.isIdentifier(p.node.init.property, { name: "props" })
             );
             if (variableDeclarator) {
-              // Save the properties being spread to `objectPattern`
-              objectPattern = path.node;
-
-              // Remove the `const { my, vars } = this.props` declaration
-              // from the function body
+              propsDestructuringPatterns.push(path.node);
               variableDeclarator.remove();
+            }
+          }
+        });
+
+        let referenceThisProps = false;
+        path.traverse({
+          MemberExpression(path) {
+            if (
+              t.isThisExpression(path.node.object) &&
+              t.isIdentifier(path.node.property, { name: "props" })
+            ) {
+              referenceThisProps = true;
+              path.replaceWith(t.identifier("props"));
             }
           }
         });
@@ -37,9 +45,34 @@ module.exports = babel => {
           // If there are many statements in the render method body,
           // then just copy it
           functionBody = renderMethod.body;
+          if (referenceThisProps) {
+          }
         } else {
           // It it's just one (the return), then use an implicit return
           functionBody = renderMethod.body.body[0].argument;
+        }
+
+        // Merge all props destructuring patterns into one
+        let functionArguments = [];
+        const objectPattern = t.objectPattern(
+          propsDestructuringPatterns
+            .map(pattern => pattern.properties)
+            .reduce((prev, curr) => [...prev, ...curr], [])
+        );
+
+        if (referenceThisProps) {
+          functionArguments = [t.identifier("props")];
+
+          if (objectPattern.properties.length > 0) {
+            functionBody.body = [
+              t.variableDeclaration("const", [
+                t.variableDeclarator(objectPattern, t.identifier("props"))
+              ]),
+              ...functionBody.body
+            ];
+          }
+        } else if (objectPattern.properties.length > 0) {
+          functionArguments.push(objectPattern);
         }
 
         // Replace class definition with a function whose body is
@@ -48,10 +81,7 @@ module.exports = babel => {
           t.variableDeclaration("const", [
             t.variableDeclarator(
               t.identifier(path.node.id.name),
-              t.arrowFunctionExpression(
-                objectPattern ? [objectPattern] : [],
-                functionBody
-              )
+              t.arrowFunctionExpression(functionArguments, functionBody)
             )
           ])
         );

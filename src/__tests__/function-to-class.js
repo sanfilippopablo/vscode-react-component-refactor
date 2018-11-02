@@ -23,9 +23,23 @@ pluginTester({
       code: `
         const MyComponent = () => <div>hello</div>;
       `,
+      snapshot: true
+    },
+    {
+      code: `
+        const MyComponent = (theProps) => {
+          const { a, b } = theProps;
+          <div>{theProps.c}</div>
+        };
+      `,
       // snapshot: true
       output: `
-        class 
+        class MyComponent extends React.Component {
+          render () {
+            const { a, b } = this.props;
+            return <div>{this.props.c}</div>;
+          }
+        }
       `
     }
   ],

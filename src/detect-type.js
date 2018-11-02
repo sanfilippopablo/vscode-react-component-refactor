@@ -20,6 +20,14 @@ function detectType(code) {
     "FunctionDeclaration|FunctionExpression|ArrowFunctionExpression"(path) {
       if (path.node.body.type === "JSXElement") {
         numberOfFunctionComponents++;
+      } else {
+        path.traverse({
+          ReturnStatement(path) {
+            if (path.node.argument.type === "JSXElement") {
+              numberOfFunctionComponents++;
+            }
+          }
+        });
       }
     }
   };

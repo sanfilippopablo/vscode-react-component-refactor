@@ -64,4 +64,15 @@ describe("detectType", () => {
     `)
     ).toBe(null);
   });
+
+  test("with function component 2", () => {
+    expect(
+      detectType(`
+      const MyComponent = (theProp) => {
+        const { a, b } = theProp;
+        return <div>{theProp.c}</div>
+    };
+    `)
+    ).toBe("function");
+  });
 });

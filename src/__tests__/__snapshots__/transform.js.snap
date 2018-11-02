@@ -6,9 +6,10 @@ exports[`transform functionToClass 1`] = `
 "class MyComponent extends React.Component {
   render() {
     const {
-      a
+      a,
+      b
     } = this.props;
-    return <div>a</div>;
+    <div>{this.props.c}</div>;
   }
 
 }"
